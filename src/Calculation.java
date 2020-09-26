@@ -36,7 +36,7 @@ public class Calculation {
      * Switch on gender and calculate calories needed to eat.
      *  @return double
      */
-    public double getCalc(){
+    public String calc_weight_goal(){
         switch (gender){
             case("male"):
                 double temp = calcMale();
@@ -50,14 +50,17 @@ public class Calculation {
         }
         if (target_goal > weight){ //eat more
             calories_must_eat = calories + 500;
+            return "You need to consume " + calories_must_eat + " calories in order to gain weight.";
 
         }else if (target_goal < weight){ //eat less
             calories_must_eat = calories - 500;
+            return "You need to consume " + calories_must_eat + " calories in order to lose weight.";
 
         } else if(target_goal == weight){ //eat the same
             calories_must_eat = calories;
+            return "You need to consume " + calories_must_eat + " calories in order to maintain your current weight.";
         }
-        return calories_must_eat;
+        return "You need to consume " + calories_must_eat + " calories.";
     }
 
     private double calcMale(){
