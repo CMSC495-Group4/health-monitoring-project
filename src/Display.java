@@ -267,6 +267,7 @@ public Display() {
 	Border analysisBorder = BorderFactory.createTitledBorder("Goal Analysis");
 	analysisPanel = new JPanel();
 	analysisArea = new JTextArea("add the analysis string here!");
+	analysisArea.setSize(260, 100); //modify the height from 100, if need more room!
 	analysisArea.setLineWrap(true);
 	analysisArea.setEditable(false);
 	analysisPanel.add(analysisArea);
