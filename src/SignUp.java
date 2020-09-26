@@ -333,7 +333,12 @@ class SignUp extends JFrame implements ActionListener {
                 tout.setText(data + data1 + data2 + data3 + data4 + data5 + data6 +data7); 
                 tout.setEditable(false);
                 res.setText("Profile successfully created..."); 
-            } 
+            
+		//this is for the bring to main UI 
+		Display displyUI = new Display();
+		dispose(); //not working   
+		    
+	    } 
             else { 
                 tout.setText(""); 
                 resadd.setText(""); 
