@@ -326,7 +326,7 @@ class SignUp extends JFrame implements ActionListener {
                 //bios array indices 8-20 are reserved for historical GOAl data; index 21 included for .csv formatting
                 String[] bios = new String[] {heightText.getText(), weightText.getText(), ageText.getText(), data1,
                         data5, goalWeightText.getText(), null, null, null, null, null, null, null, null, null, null,
-                        null, null, "\n"};
+                        null, null};
                 try {
                     DatabaseInterface new_user = new DatabaseInterface();
                     //new_user.user_exists(usernameText.getText());  //TODO need to add logic to see if user already exists
@@ -334,7 +334,7 @@ class SignUp extends JFrame implements ActionListener {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
-                res.setText("Profile successfully created..."); 
+                res.setText("Profile successfully created...Returning to Login Page!"); 
                 final Timer t = new Timer(10000, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent evt) {
@@ -363,8 +363,8 @@ class SignUp extends JFrame implements ActionListener {
             heightText.setText(erase);
             weightText.setText(erase);
             goalWeightText.setText(erase);
-            //NOTE The radio buttons do not reset even when
-            //.setSelected(false); is assigned. 
+            // male.setSelected(false);
+            // female.setSelected(false);
             term.setSelected(false); 
             resadd.setText(erase); 
         }//end else if

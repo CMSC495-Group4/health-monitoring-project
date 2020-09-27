@@ -74,13 +74,9 @@ public class DatabaseInterface {
 	public void add_user(String username, String password, String[] bios) throws IOException {
 
 		writer = new BufferedWriter(new FileWriter(input_file,true));		
-		writer.append(username+","+password+","+String.join(",", bios));
-		// writer.append(password+",");		
-		// writer.append(String.join(",", bios));	
-		//writer.append("\n");
+		writer.append(username+","+password+","+String.join(",", bios)+"\n");
 		writer.flush();
 		writer.close();
-		
 	}
 
 	/**

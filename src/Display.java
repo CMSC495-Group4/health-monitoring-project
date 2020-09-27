@@ -65,215 +65,220 @@ public Display() {
 	int VERTSPLIT = JSplitPane.VERTICAL_SPLIT;
     boolean GridBagLayout = true;
 
-    // DatabaseInterface display_user;
-    // try {
-    //     display_user = new DatabaseInterface();
-    //     String[] user = display_user.get_bios("bob");
-    //     System.out.println(user);
-    // } catch (IOException e) {
-    //     // TODO Auto-generated catch block
-    //     e.printStackTrace();
-    // }
-
-	Border statBorder = BorderFactory.createTitledBorder("Current Statistics");
+    try {
+        DatabaseInterface get_bios = new DatabaseInterface();
+        Border statBorder = BorderFactory.createTitledBorder("Current Statistics");
 	
-	currentStatsPanel = new JPanel(new GridBagLayout());
-	GridBagConstraints constraints = new GridBagConstraints();
-	constraints.fill = GridBagConstraints.HORIZONTAL;
-	
-	heightLabel = new JLabel("Height: ");
-    constraints.insets = new Insets(2,2,2,2);
-    constraints.gridx = 0;
-    constraints.gridy = 0;
-    constraints.gridwidth = 1;
-    currentStatsPanel.add(heightLabel, constraints);
+        currentStatsPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        
+        heightLabel = new JLabel("Height: ");
+        constraints.insets = new Insets(2,2,2,2);
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.gridwidth = 1;
+        currentStatsPanel.add(heightLabel, constraints);
+        
+        String[] user = get_bios.get_bios("bob");
+        heightText = new JTextField(user[2]);
+        heightText.setEditable(false);
+        constraints.insets = new Insets(2,2,2,2);
+        constraints.gridx = 1;
+        constraints.gridy = 0;
+        constraints.gridwidth = 1;
+        currentStatsPanel.add(heightText, constraints);
+        
+        weightLabel = new JLabel("Weight: ");
+        constraints.insets = new Insets(2,2,2,2);
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        constraints.gridwidth = 1;
+        currentStatsPanel.add(weightLabel, constraints);
+    
+    
+        
+        goalLabel = new JLabel("GOAL: ");
+        constraints.insets = new Insets(2,2,2,2);
+        constraints.gridx = 0;
+        constraints.gridy = 2;
+        constraints.gridwidth = 1;
+        currentStatsPanel.add(goalLabel, constraints);
+    
+        goalText = new JTextField(user[7]);
+        goalText.setEditable(false);
+        constraints.insets = new Insets(0,0,0,0);
+        constraints.gridx = 1;
+        constraints.gridy = 2;
+        constraints.gridwidth = 1;
+        currentStatsPanel.add(goalText, constraints);
+        
+        currentStatsPanel.setBorder(statBorder);
+    
+        //Start Panel 2
+        Border goalBorder = BorderFactory.createTitledBorder("GOAL Updates");
+        
+        currentGoalPanel = new JPanel(new GridBagLayout());
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        
+        genderLabel = new JLabel("Gender: ");
+        constraints.insets = new Insets(0,0,0,0);
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        currentGoalPanel.add(genderLabel, constraints);
+        
+        male = new JRadioButton("Male");
+        female = new JRadioButton("Female");
+        genderGroup = new ButtonGroup();
+        genderGroup.add(male);
+        genderGroup.add(female);
+        constraints.insets = new Insets(0,0,0,0);
+        constraints.gridx = 1;
+        constraints.gridy = 0;
+        currentGoalPanel.add(male, constraints);
+        constraints.insets = new Insets(0,0,0,0);
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+        currentGoalPanel.add(female, constraints);
+        
+        currentWeightLabel = new JLabel("Current Weight: (lbs)");
+        constraints.insets = new Insets(0,0,0,0);
+        constraints.gridx = 0;
+        constraints.gridy = 2;
+        constraints.gridwidth = 1;
+        currentGoalPanel.add(currentWeightLabel, constraints);
+    
+        currentWeightText = new JTextField();
+        constraints.insets = new Insets(0,0,0,0);
+        constraints.gridx = 1;
+        constraints.gridy = 2;
+        constraints.gridwidth = 1;
+        currentGoalPanel.add(currentWeightText, constraints);
+        
+        currentHeightLabel = new JLabel("Current Height: (inch)");
+        constraints.insets = new Insets(0,0,0,0);
+        constraints.gridx = 0;
+        constraints.gridy = 3;
+        constraints.gridwidth = 1;
+        currentGoalPanel.add(currentHeightLabel, constraints);
+    
+        currentHeightText = new JTextField();
+        constraints.insets = new Insets(0,0,0,0);
+        constraints.gridx = 1;
+        constraints.gridy = 3;
+        constraints.gridwidth = 1;
+        currentGoalPanel.add(currentHeightText, constraints);
+        
+        ageLabel = new JLabel("Age: (yrs)");
+        constraints.insets = new Insets(0,0,0,0);
+        constraints.gridx = 0;
+        constraints.gridy = 4;
+        constraints.gridwidth = 1;
+        currentGoalPanel.add(ageLabel, constraints);
+    
+        ageText = new JTextField();
+        constraints.insets = new Insets(0,0,0,0);
+        constraints.gridx = 1;
+        constraints.gridy = 4;
+        constraints.gridwidth = 1;
+        currentGoalPanel.add(ageText, constraints);
+        
+        goalWeightLabel = new JLabel("GOAL Weight: (lbs)");
+        constraints.insets = new Insets(0,0,0,0);
+        constraints.gridx = 0;
+        constraints.gridy = 5;
+        constraints.gridwidth = 1;
+        currentGoalPanel.add(goalWeightLabel, constraints);
+    
+        goalWeightText = new JTextField();
+        constraints.insets = new Insets(0,0,0,0);
+        constraints.gridx = 1;
+        constraints.gridy = 5;
+        constraints.gridwidth = 1;
+        currentGoalPanel.add(goalWeightText, constraints);
+        
+        activityLabel = new JLabel("Activity Level: ");
+        constraints.insets = new Insets(1,1,1,1);
+        constraints.gridx = 0;
+        constraints.gridy = 6;
+        constraints.gridwidth = 1;
+        currentGoalPanel.add(activityLabel, constraints);
+        
+        sedentary = new JRadioButton("Sedentary");
+        lightActive = new JRadioButton("Light Active");
+        modActive = new JRadioButton("Moderate Active");
+        veryActive = new JRadioButton("Very Active");
+        extraActive = new JRadioButton("Extra Active");
+        actyLvlGroup = new ButtonGroup();
+        actyLvlGroup.add(sedentary);
+        actyLvlGroup.add(lightActive);
+        actyLvlGroup.add(modActive);
+        actyLvlGroup.add(veryActive);
+        actyLvlGroup.add(extraActive);
+        constraints.insets = new Insets(0,0,0,0);
+        constraints.gridx = 1;
+        constraints.gridy = 6;
+        constraints.gridwidth = 2;
+        currentGoalPanel.add(sedentary, constraints);
+        constraints.insets = new Insets(0,0,0,0);
+        constraints.gridx = 1;
+        constraints.gridy = 7;
+        constraints.gridwidth = 2;
+        currentGoalPanel.add(lightActive, constraints);
+        constraints.insets = new Insets(0,0,0,0);
+        constraints.gridx = 1;
+        constraints.gridy = 8;
+        constraints.gridwidth = 2;
+        currentGoalPanel.add(modActive, constraints);
+        constraints.insets = new Insets(0,0,0,0);
+        constraints.gridx = 1;
+        constraints.gridy = 9;
+        constraints.gridwidth = 2;
+        currentGoalPanel.add(veryActive, constraints);
+        constraints.insets = new Insets(0,0,0,0);
+        constraints.gridx = 1;
+        constraints.gridy = 10;
+        constraints.gridwidth = 2;
+        currentGoalPanel.add(extraActive, constraints);
+        
+        updateGoalBtn = new JButton("Update");
+        constraints.insets = new Insets(0,0,0,0);
+        constraints.gridx = 1;
+        constraints.gridy = 11;
+        constraints.gridwidth = 1;
+        currentGoalPanel.add(updateGoalBtn, constraints);
+        
+        clearGoalBtn = new JButton("Clear");
+        constraints.insets = new Insets(5,5,5,5);
+        constraints.gridx = 2;
+        constraints.gridy = 11;
+        clearGoalBtn.addActionListener(this); 
+        currentGoalPanel.add(clearGoalBtn, constraints);
+        currentGoalPanel.setBorder(goalBorder);
 
-    heightText = new JTextField("toString");
-    heightText.setEditable(false);
-    constraints.insets = new Insets(2,2,2,2);
-    constraints.gridx = 1;
-    constraints.gridy = 0;
-    constraints.gridwidth = 1;
-    currentStatsPanel.add(heightText, constraints);
-    
-    weightLabel = new JLabel("Weight: ");
-    constraints.insets = new Insets(2,2,2,2);
-    constraints.gridx = 0;
-    constraints.gridy = 1;
-    constraints.gridwidth = 1;
-    currentStatsPanel.add(weightLabel, constraints);
-
-    weightText = new JTextField("toString");
-    weightText.setEditable(false);
-    constraints.insets = new Insets(2,2,2,2);
-    constraints.gridx = 1;
-    constraints.gridy = 1;
-    constraints.gridwidth = 1;
-    currentStatsPanel.add(weightText, constraints);
-    
-    goalLabel = new JLabel("GOAL: ");
-    constraints.insets = new Insets(2,2,2,2);
-    constraints.gridx = 0;
-    constraints.gridy = 2;
-    constraints.gridwidth = 1;
-    currentStatsPanel.add(goalLabel, constraints);
-
-    goalText = new JTextField("toString");
-    goalText.setEditable(false);
-    constraints.insets = new Insets(0,0,0,0);
-    constraints.gridx = 1;
-    constraints.gridy = 2;
-    constraints.gridwidth = 1;
-    currentStatsPanel.add(goalText, constraints);
-    
-    currentStatsPanel.setBorder(statBorder);
-
-    //Start Panel 2
-    Border goalBorder = BorderFactory.createTitledBorder("GOAL Updates");
-	
-	currentGoalPanel = new JPanel(new GridBagLayout());
-	constraints.fill = GridBagConstraints.HORIZONTAL;
-	
-	genderLabel = new JLabel("Gender: ");
-    constraints.insets = new Insets(0,0,0,0);
-    constraints.gridx = 0;
-    constraints.gridy = 0;
-    currentGoalPanel.add(genderLabel, constraints);
-    
-    male = new JRadioButton("Male");
-    female = new JRadioButton("Female");
-    genderGroup = new ButtonGroup();
-    genderGroup.add(male);
-    genderGroup.add(female);
-    constraints.insets = new Insets(0,0,0,0);
-    constraints.gridx = 1;
-    constraints.gridy = 0;
-    currentGoalPanel.add(male, constraints);
-    constraints.insets = new Insets(0,0,0,0);
-    constraints.gridx = 1;
-    constraints.gridy = 1;
-    currentGoalPanel.add(female, constraints);
-    
-    currentWeightLabel = new JLabel("Current Weight: (lbs)");
-    constraints.insets = new Insets(0,0,0,0);
-    constraints.gridx = 0;
-    constraints.gridy = 2;
-    constraints.gridwidth = 1;
-    currentGoalPanel.add(currentWeightLabel, constraints);
-
-    currentWeightText = new JTextField();
-    constraints.insets = new Insets(0,0,0,0);
-    constraints.gridx = 1;
-    constraints.gridy = 2;
-    constraints.gridwidth = 1;
-    currentGoalPanel.add(currentWeightText, constraints);
-    
-    currentHeightLabel = new JLabel("Current Height: (inch)");
-    constraints.insets = new Insets(0,0,0,0);
-    constraints.gridx = 0;
-    constraints.gridy = 3;
-    constraints.gridwidth = 1;
-    currentGoalPanel.add(currentHeightLabel, constraints);
-
-    currentHeightText = new JTextField();
-    constraints.insets = new Insets(0,0,0,0);
-    constraints.gridx = 1;
-    constraints.gridy = 3;
-    constraints.gridwidth = 1;
-    currentGoalPanel.add(currentHeightText, constraints);
-    
-    ageLabel = new JLabel("Age: (yrs)");
-    constraints.insets = new Insets(0,0,0,0);
-    constraints.gridx = 0;
-    constraints.gridy = 4;
-    constraints.gridwidth = 1;
-    currentGoalPanel.add(ageLabel, constraints);
-
-    ageText = new JTextField();
-    constraints.insets = new Insets(0,0,0,0);
-    constraints.gridx = 1;
-    constraints.gridy = 4;
-    constraints.gridwidth = 1;
-    currentGoalPanel.add(ageText, constraints);
-    
-    goalWeightLabel = new JLabel("GOAL Weight: (lbs)");
-    constraints.insets = new Insets(0,0,0,0);
-    constraints.gridx = 0;
-    constraints.gridy = 5;
-    constraints.gridwidth = 1;
-    currentGoalPanel.add(goalWeightLabel, constraints);
-
-    goalWeightText = new JTextField();
-    constraints.insets = new Insets(0,0,0,0);
-    constraints.gridx = 1;
-    constraints.gridy = 5;
-    constraints.gridwidth = 1;
-    currentGoalPanel.add(goalWeightText, constraints);
-    
-    activityLabel = new JLabel("Activity Level: ");
-    constraints.insets = new Insets(1,1,1,1);
-    constraints.gridx = 0;
-    constraints.gridy = 6;
-    constraints.gridwidth = 1;
-    currentGoalPanel.add(activityLabel, constraints);
-    
-    sedentary = new JRadioButton("Sedentary");
-    lightActive = new JRadioButton("Light Active");
-    modActive = new JRadioButton("Moderate Active");
-    veryActive = new JRadioButton("Very Active");
-    extraActive = new JRadioButton("Extra Active");
-    actyLvlGroup = new ButtonGroup();
-    actyLvlGroup.add(sedentary);
-    actyLvlGroup.add(lightActive);
-    actyLvlGroup.add(modActive);
-    actyLvlGroup.add(veryActive);
-    actyLvlGroup.add(extraActive);
-    constraints.insets = new Insets(0,0,0,0);
-    constraints.gridx = 1;
-    constraints.gridy = 6;
-    constraints.gridwidth = 2;
-    currentGoalPanel.add(sedentary, constraints);
-    constraints.insets = new Insets(0,0,0,0);
-    constraints.gridx = 1;
-    constraints.gridy = 7;
-    constraints.gridwidth = 2;
-    currentGoalPanel.add(lightActive, constraints);
-    constraints.insets = new Insets(0,0,0,0);
-    constraints.gridx = 1;
-    constraints.gridy = 8;
-    constraints.gridwidth = 2;
-    currentGoalPanel.add(modActive, constraints);
-    constraints.insets = new Insets(0,0,0,0);
-    constraints.gridx = 1;
-    constraints.gridy = 9;
-    constraints.gridwidth = 2;
-    currentGoalPanel.add(veryActive, constraints);
-    constraints.insets = new Insets(0,0,0,0);
-    constraints.gridx = 1;
-    constraints.gridy = 10;
-    constraints.gridwidth = 2;
-    currentGoalPanel.add(extraActive, constraints);
-    
-    updateGoalBtn = new JButton("Update");
-    constraints.insets = new Insets(0,0,0,0);
-    constraints.gridx = 1;
-    constraints.gridy = 11;
-    constraints.gridwidth = 1;
-    currentGoalPanel.add(updateGoalBtn, constraints);
-    
-    clearGoalBtn = new JButton("Clear");
-    constraints.insets = new Insets(5,5,5,5);
-    constraints.gridx = 2;
-    constraints.gridy = 11;
-    clearGoalBtn.addActionListener(this); 
-    currentGoalPanel.add(clearGoalBtn, constraints);
-    currentGoalPanel.setBorder(goalBorder);
+        weightText = new JTextField(user[3]);
+        weightText.setEditable(false);
+        constraints.insets = new Insets(2,2,2,2);
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+        constraints.gridwidth = 1;
+        currentStatsPanel.add(weightText, constraints);
+    } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
 
     //Start Panel 3
     Border chartBorder = BorderFactory.createTitledBorder("Progress Chart");
 	progressPanel = new JPanel();
-	//add chart to the panel!
-	progressPanel.setBorder(chartBorder);
+    //add chart to the panel!
+    progressPanel.setBorder(chartBorder);
+    // try {
+    //     Chart chart_panel = new Chart("Test", "test", "test", get_bios.get_bios("bob"));
+    //     progressPanel.add(chart_panel, BorderLayout.CENTER);
+    // } catch (Exception e) {
+    //     //TODO: handle exception
+    // }
 	
 	//Forth Panel
 	Border analysisBorder = BorderFactory.createTitledBorder("Goal Analysis");
@@ -284,14 +289,6 @@ public Display() {
 	analysisPanel.add(analysisArea);
 	//Add the goal analysis string to the panel!
 	analysisPanel.setBorder(analysisBorder);
-	
-	
-    //test labels
-	//JLabel label1 = new JLabel("a");
-	//JLabel label2 = new JLabel("b");
-	//JLabel label3 = new JLabel("c");
-	//JLabel label4 = new JLabel("d");
-	
 	
 	//JSplitPane splitPane1 = new JSplitPane(VERTSPLIT, GridBagLayout, label1, label2);
 	JSplitPane splitPane1 = new JSplitPane(VERTSPLIT, GridBagLayout, currentStatsPanel, currentGoalPanel);
