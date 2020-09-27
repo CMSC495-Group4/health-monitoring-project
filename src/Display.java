@@ -7,6 +7,7 @@ import java.awt.Insets;
 import java.awt.event.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.io.IOException;
 
 import javax.swing.border.Border;
 
@@ -62,7 +63,18 @@ public class Display implements ActionListener{
 public Display() {
 	int HORIZSPLIT = JSplitPane.HORIZONTAL_SPLIT;
 	int VERTSPLIT = JSplitPane.VERTICAL_SPLIT;
-	boolean GridBagLayout = true;
+    boolean GridBagLayout = true;
+
+    // DatabaseInterface display_user;
+    // try {
+    //     display_user = new DatabaseInterface();
+    //     String[] user = display_user.get_bios("bob");
+    //     System.out.println(user);
+    // } catch (IOException e) {
+    //     // TODO Auto-generated catch block
+    //     e.printStackTrace();
+    // }
+
 	Border statBorder = BorderFactory.createTitledBorder("Current Statistics");
 	
 	currentStatsPanel = new JPanel(new GridBagLayout());
@@ -308,7 +320,7 @@ public Display() {
     //Log off terminates program as soon as the user clicks
     menuLogoff.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent ev) {
-            System.exit(0);
+            Login run_login_gui = new Login(); 
         }//end action
     });//end menuLogoff ActionListener
    

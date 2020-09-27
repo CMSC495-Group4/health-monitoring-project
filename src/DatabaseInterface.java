@@ -1,4 +1,4 @@
-package chart;
+//package chart;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -62,6 +62,7 @@ public class DatabaseInterface {
 		reader.close();
 		return is_auth;
 	}
+
 	/**
 	 * Adds a user to the CSV file. Appends the user to the end of the file. 
 	 * 
@@ -71,17 +72,17 @@ public class DatabaseInterface {
 	 * @throws IOException
 	 */
 	public void add_user(String username, String password, String[] bios) throws IOException {
-		
+
 		writer = new BufferedWriter(new FileWriter(input_file,true));		
-		writer.append(username+",");
-		writer.append(password+",");		
-		writer.append(String.join(",", bios));	
-		writer.append("\n");
+		writer.append(username+","+password+","+String.join(",", bios));
+		// writer.append(password+",");		
+		// writer.append(String.join(",", bios));	
+		//writer.append("\n");
 		writer.flush();
 		writer.close();
 		
 	}
-	
+
 	/**
 	 * Checks the CSV file to determine if a user exists.
 	 * 

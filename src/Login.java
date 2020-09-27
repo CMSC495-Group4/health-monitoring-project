@@ -3,6 +3,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -120,18 +121,24 @@ public class Login extends JFrame implements ActionListener{
         loginButton.addActionListener(new ActionListener() {
             @SuppressWarnings("unused")
 			public void actionPerformed(ActionEvent e) {
-                if (Database.authenticate(getUsername(), getPassword())) {
-                    JOptionPane.showMessageDialog(loginFrame,"Successfully Authenticated.");
-                    Display displyUI = new Display();
-                    dispose(); //not working
-                } else {
-                	JOptionPane.showMessageDialog(loginFrame,"Incorrect Username and Password combination."
-                    		,"Alert",JOptionPane.WARNING_MESSAGE);
-                    // reset user name and password
-                    usernameText.setText("");
-                    passwordText.setText("");
-                    //succeeded = false;
-                }//end else
+                try {
+                    DatabaseInterface auth = new DatabaseInterface();
+                    if (auth.authenticate(getUsername(), getPassword())) {
+                        JOptionPane.showMessageDialog(loginFrame,"Successfully Authenticated.");
+                        Display displyUI = new Display();
+                        dispose(); //not working
+                    } else {
+                        JOptionPane.showMessageDialog(loginFrame,"Incorrect Username and Password combination."
+                                ,"Alert",JOptionPane.WARNING_MESSAGE);
+                        // reset user name and password
+                        usernameText.setText("");
+                        passwordText.setText("");
+                        //succeeded = false;
+                    }//end else
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+
             }//end actionPerformed
         });//end loginButton ActionListener
         
