@@ -24,12 +24,12 @@ public class Calculation {
      */
     public Calculation(String[] string_array){
         bios = string_array;
-        this.height = Integer.parseInt(bios[2]);
-        this.weight = Integer.parseInt(bios[3]);
-        this.age = Integer.parseInt(bios[4]);
-        this.gender = bios[5];
-        this.activity_level = bios[6];
-        this.target_goal = Integer.parseInt(bios[7]);
+        this.height = Integer.parseInt(bios[0]);
+        this.weight = Integer.parseInt(bios[1]);
+        this.age = Integer.parseInt(bios[2]);
+        this.gender = bios[3];
+        this.activity_level = bios[4];
+        this.target_goal = Integer.parseInt(bios[5]);
     }
 
     /**
