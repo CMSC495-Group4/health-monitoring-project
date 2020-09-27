@@ -292,37 +292,41 @@ class SignUp extends JFrame implements ActionListener {
                 String data = "Username: " + usernameText.getText() + "\n" + "Password Match: " + passwordText.getText()
                         + "\n";
                 if (male.isSelected())
-                    data1 = "Male" + "\n";
+                    data1 = "Male";
                 else if (female.isSelected())
-                    data1 = "Female" + "\n";
+                    data1 = "Female";
                 else
-                    data1 = "Gender: " + "\n";
+                    data1 = "Gender: ";
 
-                String data2 = "Age : " + ageText.getText() + "\n";
-                String data3 = "Current Height: " + heightText.getText() + "\n";
-                String data4 = "Current Weight: " + weightText.getText() + "\n";
+                String data2 = "Age : " + ageText.getText();
+                String data3 = "Current Height: " + heightText.getText();
+                String data4 = "Current Weight: " + weightText.getText();
                 String data5;
                 if (sedentary.isSelected())
-                    data5 = "Sedentary" + "\n";
+                    data5 = "Sedentary";
                 else if (lightActive.isSelected())
-                    data5 = "Light Activity" + "\n";
+                    data5 = "Light Activity";
                 else if (modActive.isSelected())
-                    data5 = "Moderate Activity" + "\n";
+                    data5 = "Moderate Activity";
                 else if (veryActive.isSelected())
-                    data5 = "Very Active" + "\n";
+                    data5 = "Very Active";
                 else if (extraActive.isSelected())
-                    data5 = "Extra Active" + "\n";
+                    data5 = "Extra Active";
                 else
-                    data5 = "Activity Level: " + "\n";
-                String data6 = "Goal Weight: " + goalWeightText.getText() + "\n";
+                    data5 = "Activity Level: ";
+                String data6 = "Goal Weight: " + goalWeightText.getText();
                 String data7;
                 if (term.isSelected())
                     data7 = "Terms and Conditions: True" + "\n";
                 else
                     data7 = "Terms and Conditions: False" + "\n";
-                tout.setText(data + data1 + data2 + data3 + data4 + data5 + data6 + data7);
+                //data == username/password, data1 == gender, data2 == age, data3 == height, data4 == weight, data5 == activity level, data6 == goal weight, data7 == terms&cond checked
+                tout.setText(data +"\n"+ data1 +"\n"+ data2 +"\n"+ data3 +"\n"+ data4 +"\n"+ data5 +"\n"+ data6 +"\n"+ data7);
                 tout.setEditable(false);
-                String[] bios = new String[] {heightText.getText(),weightText.getText(),ageText.getText(),data1,data5,goalWeightText.getText()};
+                //bios array indices 8-20 are reserved for historical GOAl data; index 21 included for .csv formatting
+                String[] bios = new String[] {heightText.getText(), weightText.getText(), ageText.getText(), data1,
+                        data5, goalWeightText.getText(), null, null, null, null, null, null, null, null, null, null,
+                        null, null, "\n"};
                 try {
                     DatabaseInterface new_user = new DatabaseInterface();
                     //new_user.user_exists(usernameText.getText());  //TODO need to add logic to see if user already exists
