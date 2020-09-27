@@ -1,5 +1,4 @@
-import java.util.Arrays;
-
+//package chart;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
@@ -34,9 +33,10 @@ public class Chart{
 		this.X_Axis = X_Axis;
 		this.Y_Axis = Y_Axis;
 		this.chartTitle = chartTitle;
-		dataset_array = Arrays.copyOfRange(bios, 6, 20);
+		dataset_array = bios;
 		goal = Integer.parseInt(bios[5]);
-	}
+		
+	   }
 	/**
 	 * Creates and returns the JFreeChart based on the class variables.
 	 *
@@ -59,11 +59,10 @@ public class Chart{
 	 */
 	private DefaultCategoryDataset createDataset() {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
-		for (int i=0; i<dataset_array.length; i++){
-			System.out.println(dataset_array[i]);
-			if (!dataset_array[i].equals("null")) 
-	    		  dataset.addValue(Integer.parseInt(dataset_array[i]), set_label,""+(14-i));
-	    	  dataset.addValue(goal, "Goal", ""+(14-i));
+		for (int i=6; i<20; i++) {
+			if (dataset_array[i]!= null) 
+	    		  dataset.addValue(Integer.parseInt(dataset_array[i]), set_label,""+(i-5));
+	    	  dataset.addValue(goal, "Goal", ""+(i-5));
 	      }	    	  
 	      return dataset;
 	}

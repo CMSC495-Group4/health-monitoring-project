@@ -127,7 +127,7 @@ public class Login extends JFrame implements ActionListener{
                     DatabaseInterface auth = new DatabaseInterface();
                     if (auth.authenticate(getUsername(), getPassword())) {
                         JOptionPane.showMessageDialog(loginFrame,"Successfully Authenticated.");
-                        Display displyUI = new Display(getUsername());
+                        Display displyUI = new Display();
                         loginFrame.dispose(); //not working
                     } else {
                         JOptionPane.showMessageDialog(loginFrame,"Incorrect Username and Password combination."
@@ -195,4 +195,3 @@ public class Login extends JFrame implements ActionListener{
 		
 	}
 }
-
