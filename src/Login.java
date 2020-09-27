@@ -112,6 +112,7 @@ public class Login extends JFrame implements ActionListener{
         //CANCEL BUTTON ACTION
         cancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                loginFrame.dispose();
                 //dispose();
             	System.exit(0); //that's if we want to add this functionality
             }
@@ -121,12 +122,13 @@ public class Login extends JFrame implements ActionListener{
         loginButton.addActionListener(new ActionListener() {
             @SuppressWarnings("unused")
 			public void actionPerformed(ActionEvent e) {
+
                 try {
                     DatabaseInterface auth = new DatabaseInterface();
                     if (auth.authenticate(getUsername(), getPassword())) {
                         JOptionPane.showMessageDialog(loginFrame,"Successfully Authenticated.");
                         Display displyUI = new Display();
-                        dispose(); //not working
+                        loginFrame.dispose(); //not working
                     } else {
                         JOptionPane.showMessageDialog(loginFrame,"Incorrect Username and Password combination."
                                 ,"Alert",JOptionPane.WARNING_MESSAGE);
@@ -145,9 +147,11 @@ public class Login extends JFrame implements ActionListener{
         //SIGN UP BUTTON ACTION
         signupButton.addActionListener(new ActionListener() {
             @SuppressWarnings("unused")
+
 			public void actionPerformed(ActionEvent e) {
             	 //willupdate
             	SignUp signupFrame = new SignUp();
+            	loginFrame.dispose();
             }//end actionPerformed
         });//end loginButton ActionListener
         

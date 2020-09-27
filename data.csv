@@ -1,4 +1,1 @@
-john,pass,60,140,21,Male,Very Active,150,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
-john1,pass1,55,150,22,Female,Light Activity,140,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
-john2,pass2,65,200,25,Male,Sedentary,201,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
-john3,pass3,52,110,22,Female,Extra Active,105,null,null,null,null,null,null,null,null,null,null,null,null,
+John,pass,70,180,25,Male,Moderate Activity,200,null,null,null,null,null,null,null,null,null,null,null,null,
