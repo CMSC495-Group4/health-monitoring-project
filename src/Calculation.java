@@ -82,7 +82,7 @@ public class Calculation {
         double calories_to_maintain = 0;
         switch(activity_level){
 
-            case("sedentary"):
+            case("Sedentary"):
                 calories_to_maintain = BMR * 1.2;
                 break;
             case("Light_Activity"):
