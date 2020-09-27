@@ -283,9 +283,10 @@ public Display(String username) {
 	//Forth Panel
 	Border analysisBorder = BorderFactory.createTitledBorder("Goal Analysis");
 	analysisPanel = new JPanel();
-	analysisArea = new JTextArea("add the analysis string here!");
+	Calculation c = new Calculation(user);
+	analysisArea = new JTextArea(c.calc_weight_goal());
 	analysisArea.setSize(260, 100); //modify the height from 100, if need more room!
-	analysisArea.setLineWrap(true);
+	analysisArea.setLineWrap(false);
 	analysisArea.setEditable(false);
 	analysisPanel.add(analysisArea);
 	//Add the goal analysis string to the panel!
