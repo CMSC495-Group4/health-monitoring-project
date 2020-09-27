@@ -28,6 +28,7 @@ class SignUp extends JFrame implements ActionListener {
     private JLabel gender;
     private JRadioButton male;
     private JRadioButton female;
+    private JRadioButton reset_gender;
     private ButtonGroup genderGroup;
 
     private JLabel ageLabel;
@@ -39,6 +40,7 @@ class SignUp extends JFrame implements ActionListener {
     private JRadioButton modActive;
     private JRadioButton veryActive;
     private JRadioButton extraActive;
+    private JRadioButton reset_activity_level;
     private ButtonGroup actyLvlGroup;
 
     private JLabel heightLabel;
@@ -147,9 +149,13 @@ class SignUp extends JFrame implements ActionListener {
         female.setLocation(275, 215);
         c.add(female);
 
+        reset_gender = new JRadioButton();
+        c.add(reset_gender);
+
         genderGroup = new ButtonGroup();
         genderGroup.add(male);
         genderGroup.add(female);
+        genderGroup.add(reset_gender);
 
         ageLabel = new JLabel("Age:");
         ageLabel.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -218,12 +224,17 @@ class SignUp extends JFrame implements ActionListener {
         extraActive.setSize(105, 20);
         extraActive.setLocation(385, 375);
         c.add(extraActive);
+
+        reset_activity_level = new JRadioButton();
+        c.add(reset_activity_level);
+
         actyLvlGroup = new ButtonGroup();
         actyLvlGroup.add(sedentary);
         actyLvlGroup.add(lightActive);
         actyLvlGroup.add(modActive);
         actyLvlGroup.add(veryActive);
         actyLvlGroup.add(extraActive);
+        actyLvlGroup.add(reset_activity_level);
 
         goalWeightLabel = new JLabel("Goal Weight:");
         goalWeightLabel.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -363,6 +374,8 @@ class SignUp extends JFrame implements ActionListener {
             heightText.setText(erase);
             weightText.setText(erase);
             goalWeightText.setText(erase);
+            reset_activity_level.setSelected(true);
+            reset_gender.setSelected(true);
             // male.setSelected(false);
             // female.setSelected(false);
             term.setSelected(false); 
