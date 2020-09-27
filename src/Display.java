@@ -1,8 +1,10 @@
+
 //import statements
 import javax.swing.*;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.*;
 import java.awt.Insets;
 import java.awt.event.*;
 import java.time.LocalDateTime;
@@ -10,6 +12,8 @@ import java.time.format.DateTimeFormatter;
 import java.io.IOException;
 
 import javax.swing.border.Border;
+
+import org.jfree.chart.ChartPanel;
 
 public class Display implements ActionListener{
 	static JMenuBar menuBar;
@@ -96,8 +100,7 @@ public Display() {
         constraints.gridwidth = 1;
         currentStatsPanel.add(weightLabel, constraints);
     
-    
-        
+
         goalLabel = new JLabel("GOAL: ");
         constraints.insets = new Insets(2,2,2,2);
         constraints.gridx = 0;
@@ -269,16 +272,19 @@ public Display() {
     }
 
     //Start Panel 3
-    Border chartBorder = BorderFactory.createTitledBorder("Progress Chart");
-	progressPanel = new JPanel();
-    //add chart to the panel!
-    progressPanel.setBorder(chartBorder);
-    // try {
-    //     Chart chart_panel = new Chart("Test", "test", "test", get_bios.get_bios("bob"));
-    //     progressPanel.add(chart_panel, BorderLayout.CENTER);
-    // } catch (Exception e) {
-    //     //TODO: handle exception
-    // }
+    try {
+        Border chartBorder = BorderFactory.createTitledBorder("Progress Chart");
+        progressPanel = new JPanel();
+        //add chart to the panel!
+        progressPanel.setBorder(chartBorder);
+        DatabaseInterface get_bios = new DatabaseInterface();
+        Chart chart = new Chart( "ZZZ","XXX","YYY", get_bios.get_bios("bob"));
+        ChartPanel chartPanel = new ChartPanel(chart.createchart());
+        chartPanel.setPreferredSize( new java.awt.Dimension(400 , 400 ) );
+        progressPanel.add(chartPanel);
+    } catch (Exception e) {
+        //TODO: handle exception
+    }
 	
 	//Forth Panel
 	Border analysisBorder = BorderFactory.createTitledBorder("Goal Analysis");
