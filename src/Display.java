@@ -56,6 +56,8 @@ public class Display implements ActionListener{
     private ButtonGroup actyLvlGroup;
     private JButton updateGoalBtn;
     private JButton clearGoalBtn;
+    private JRadioButton reset_activity_level;
+    private JRadioButton reset_gender;
     
     //panel 3 - right top - PROGRESS CHART
     private ChartPanel chartPanel = null;
@@ -140,9 +142,11 @@ public Display(String username) {
         
         male = new JRadioButton("Male");
         female = new JRadioButton("Female");
+        reset_gender = new JRadioButton();
         genderGroup = new ButtonGroup();
         genderGroup.add(male);
         genderGroup.add(female);
+        genderGroup.add(reset_gender);
         constraints.insets = new Insets(0,0,0,0);
         constraints.gridx = 1;
         constraints.gridy = 0;
@@ -220,12 +224,14 @@ public Display(String username) {
         modActive = new JRadioButton("Moderate Active");
         veryActive = new JRadioButton("Very Active");
         extraActive = new JRadioButton("Extra Active");
+        reset_activity_level = new JRadioButton();
         actyLvlGroup = new ButtonGroup();
         actyLvlGroup.add(sedentary);
         actyLvlGroup.add(lightActive);
         actyLvlGroup.add(modActive);
         actyLvlGroup.add(veryActive);
         actyLvlGroup.add(extraActive);
+        actyLvlGroup.add(reset_activity_level);
         constraints.insets = new Insets(0,0,0,0);
         constraints.gridx = 1;
         constraints.gridy = 6;
@@ -283,8 +289,9 @@ public Display(String username) {
 	//Forth Panel
 	Border analysisBorder = BorderFactory.createTitledBorder("Goal Analysis");
 	analysisPanel = new JPanel();
-	analysisArea = new JTextArea("add the analysis string here!");
-	analysisArea.setSize(260, 100); //modify the height from 100, if need more room!
+	Calculation c = new Calculation(user);
+	analysisArea = new JTextArea(c.calc_weight_goal());
+	analysisArea.setSize(360, 100); //modify the height from 100, if need more room!
 	analysisArea.setLineWrap(true);
 	analysisArea.setEditable(false);
 	analysisPanel.add(analysisArea);
@@ -318,11 +325,12 @@ public Display(String username) {
     //Log off terminates program as soon as the user clicks
     menuLogoff.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent ev) {
-            Login run_login_gui = new Login(); 
+            System.exit(0);
         }//end action
+
     });//end menuLogoff ActionListener
    
-    //delete will spawn a JOptionPane that asks the suer if they are sure
+    //delete will spawn a JOptionPane that asks the sure if they are sure
     menuDelete.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent ev) {
             if (JOptionPane.showConfirmDialog(null, "Are you sure?", "WARNING",
@@ -369,19 +377,24 @@ public Display(String username) {
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.add(splitPane3);
     frame.setJMenuBar(menuBar);
-	frame.setSize(600, 500);
+	frame.setSize(700, 500);
 	frame.setLocationRelativeTo(null);
 	frame.setVisible(true);
 	}//end Display()
 
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
+        //ensure radio buttons from both fields are selected when update button is pressed.
+        // otherwise bad things will likely happen and we really don't want to have to deal with that.
 		if (e.getSource() == clearGoalBtn) {
 	        String erase = ""; 
 	        currentHeightText.setText(erase);
 	        currentWeightText.setText(erase);
 	        goalWeightText.setText(erase);
 	        ageText.setText(erase);
+	        reset_gender.setSelected(true);
+	        reset_activity_level.setSelected(true);
 	    }
 		else if (e.getSource() == updateGoalBtn) {
 			//add functionality here!!!

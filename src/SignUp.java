@@ -316,13 +316,13 @@ class SignUp extends JFrame implements ActionListener {
                 if (sedentary.isSelected())
                     data5 = "Sedentary";
                 else if (lightActive.isSelected())
-                    data5 = "Light Activity";
+                    data5 = "Light_Activity";
                 else if (modActive.isSelected())
-                    data5 = "Moderate Activity";
+                    data5 = "Moderate_Activity";
                 else if (veryActive.isSelected())
-                    data5 = "Very Active";
+                    data5 = "Very_Active";
                 else if (extraActive.isSelected())
-                    data5 = "Extra Active";
+                    data5 = "Extra_Active";
                 else
                     data5 = "Activity Level: ";
                 String data6 = "Goal Weight: " + goalWeightText.getText();
