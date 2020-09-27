@@ -21,6 +21,7 @@ public class Display implements ActionListener{
     static JLabel dateTime;
     static JMenuItem menuLogoff, menuDelete;//, placeholder;
     private JFrame frame;
+    private String username; //used to track username
     
     //Panel 1 - left top - Current stats, ht, wt, GOAL
     private JPanel currentStatsPanel;
@@ -57,20 +58,27 @@ public class Display implements ActionListener{
     private JButton clearGoalBtn;
     
     //panel 3 - right top - PROGRESS CHART
-    private JPanel progressPanel;
+    private ChartPanel chartPanel = null;
     
     
     //panel 4 - right bottom - goal analysis string. 
     private JPanel analysisPanel;
     private JTextArea analysisArea;
     
-public Display() {
+public Display(String username) {
 	int HORIZSPLIT = JSplitPane.HORIZONTAL_SPLIT;
 	int VERTSPLIT = JSplitPane.VERTICAL_SPLIT;
     boolean GridBagLayout = true;
+    this.username = username;
+    String[] user = new String[20];
 
     try {
-        DatabaseInterface get_bios = new DatabaseInterface();
+        DatabaseInterface DB = new DatabaseInterface();
+        user = DB.get_bios(username);
+    } catch (IOException e) {
+        frame.dispose(); //if there is an error we die
+    }
+
         Border statBorder = BorderFactory.createTitledBorder("Current Statistics");
 	
         currentStatsPanel = new JPanel(new GridBagLayout());
@@ -83,9 +91,8 @@ public Display() {
         constraints.gridy = 0;
         constraints.gridwidth = 1;
         currentStatsPanel.add(heightLabel, constraints);
-        
-        String[] user = get_bios.get_bios("bob");
-        heightText = new JTextField(user[2]);
+
+        heightText = new JTextField(user[0]);
         heightText.setEditable(false);
         constraints.insets = new Insets(2,2,2,2);
         constraints.gridx = 1;
@@ -94,6 +101,7 @@ public Display() {
         currentStatsPanel.add(heightText, constraints);
         
         weightLabel = new JLabel("Weight: ");
+        weightText = new JTextField(user[1]);
         constraints.insets = new Insets(2,2,2,2);
         constraints.gridx = 0;
         constraints.gridy = 1;
@@ -108,7 +116,7 @@ public Display() {
         constraints.gridwidth = 1;
         currentStatsPanel.add(goalLabel, constraints);
     
-        goalText = new JTextField(user[7]);
+        goalText = new JTextField(user[5]);
         goalText.setEditable(false);
         constraints.insets = new Insets(0,0,0,0);
         constraints.gridx = 1;
@@ -259,32 +267,18 @@ public Display() {
         currentGoalPanel.add(clearGoalBtn, constraints);
         currentGoalPanel.setBorder(goalBorder);
 
-        weightText = new JTextField(user[3]);
         weightText.setEditable(false);
         constraints.insets = new Insets(2,2,2,2);
         constraints.gridx = 1;
         constraints.gridy = 1;
         constraints.gridwidth = 1;
         currentStatsPanel.add(weightText, constraints);
-    } catch (IOException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-    }
+
 
     //Start Panel 3
-    try {
-        Border chartBorder = BorderFactory.createTitledBorder("Progress Chart");
-        progressPanel = new JPanel();
-        //add chart to the panel!
-        progressPanel.setBorder(chartBorder);
-        DatabaseInterface get_bios = new DatabaseInterface();
-        Chart chart = new Chart( "ZZZ","XXX","YYY", get_bios.get_bios("bob"));
-        ChartPanel chartPanel = new ChartPanel(chart.createchart());
-        chartPanel.setPreferredSize( new java.awt.Dimension(400 , 400 ) );
-        progressPanel.add(chartPanel);
-    } catch (Exception e) {
-        //TODO: handle exception
-    }
+    Chart chart = new Chart("Progress Chart" , "Days", "Weight", user);
+    chartPanel = new ChartPanel(chart.createchart());
+    chartPanel.setPreferredSize(new java.awt.Dimension(350,350));
 	
 	//Forth Panel
 	Border analysisBorder = BorderFactory.createTitledBorder("Goal Analysis");
@@ -302,7 +296,7 @@ public Display() {
 	splitPane1.setOneTouchExpandable(true);
 	splitPane1.setDividerSize(2);
 	splitPane1.setDividerLocation(100);//set the left most panel, default (0.5)
-	JSplitPane splitPane2 = new JSplitPane(VERTSPLIT, GridBagLayout, progressPanel, analysisPanel);
+	JSplitPane splitPane2 = new JSplitPane(VERTSPLIT, GridBagLayout, chartPanel, analysisPanel); //chartPanel is added directly to frame to fill area
 	splitPane2.setOneTouchExpandable(true);
 	splitPane2.setDividerSize(2);
 	splitPane2.setDividerLocation(250);//set the right most panel, default (0.5)
@@ -335,6 +329,17 @@ public Display() {
             			JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 //yes option
             	//need to add database logic here!!!
+                //Todd added code to delete user
+                try {
+                    DatabaseInterface DB = new DatabaseInterface();
+                    DB.delete_user(username);
+                }catch (IOException e){
+                    JOptionPane.showMessageDialog(null, "Error Deleting Profile. \n Goodbye!",
+                            "Alert", JOptionPane.WARNING_MESSAGE); //display error and closing application
+                }finally{
+                    System.exit(0);
+                }
+
             	JOptionPane.showMessageDialog(null,"Successfully Deleted Profile. \nGoodbye!","Alert",
             			JOptionPane.WARNING_MESSAGE);
             	System.exit(0);
