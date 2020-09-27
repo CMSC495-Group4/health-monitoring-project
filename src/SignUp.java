@@ -340,7 +340,8 @@ class SignUp extends JFrame implements ActionListener {
                 });
                 t.setRepeats(false);
                 t.start();
-            } 
+            }  
+
             else { 
                 tout.setText(""); 
                 resadd.setText(""); 
