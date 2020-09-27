@@ -193,13 +193,7 @@ public class DatabaseInterface {
 		    String[] data = next_record.split(",");
 		    if (data[0].equals(username)){
 		    	for(int i = 0; i <bios.length; i++) {
-		    		int j = 0;
-		    		if (i < 2){
-		    			//do nothing, this skips the username/password
-					}else if (i >= 2) {
-						bios[j] = data[i];//do not want username and password
-						j++;
-					}
+		    		bios[i] = data[i+2];//do not want username and password
 				}
 		    }
 		}
