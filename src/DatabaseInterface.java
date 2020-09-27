@@ -192,8 +192,8 @@ public class DatabaseInterface {
 		while ((next_record = reader.readLine()) != null) {			
 		    String[] data = next_record.split(",");
 		    if (data[0].equals(username)){
-		    	for(int i = 0; i <bios.length; i++)
-		            	bios[i] = data[i+2];//do not want username and password
+		    	for(int i = 2; i <bios.length; i++)
+		            	bios[i] = data[i];//do not want username and password
 		    }
 		}
 		reader.close();		
