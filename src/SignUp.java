@@ -298,10 +298,11 @@ class SignUp extends JFrame implements ActionListener {
     // by the user and act accordingly
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == sub) {
-            if (term.isSelected()) {
+            if (term.isSelected() && validateFields()) {
                 String data1;
                 String data = "Username: " + usernameText.getText() + "\n" + "Password Match: " + passwordText.getText()
                         + "\n";
+                
                 if (male.isSelected())
                     data1 = "Male";
                 else if (female.isSelected())
@@ -340,21 +341,23 @@ class SignUp extends JFrame implements ActionListener {
                         null, null, null, null};
                 try {
                     DatabaseInterface new_user = new DatabaseInterface();
-                    //new_user.user_exists(usernameText.getText());  //TODO need to add logic to see if user already exists
-                    new_user.add_user(usernameText.getText(), passwordText.getText(), bios);
+                    if (new_user.user_exists(usernameText.getText()))
+                        JOptionPane.showMessageDialog(null, "Username already exists");
+                    else
+                        new_user.add_user(usernameText.getText(), passwordText.getText(), bios);
+                        res.setText("Profile successfully created...Returning to Login Page!"); 
+                        final Timer t = new Timer(10000, new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent evt) {
+                                dispose();
+                                Login run_login_gui = new Login();
+                            }
+                        });
+                        t.setRepeats(false);
+                        t.start();
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
-                res.setText("Profile successfully created...Returning to Login Page!"); 
-                final Timer t = new Timer(10000, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent evt) {
-                        dispose();
-                        Login run_login_gui = new Login();
-                    }
-                });
-                t.setRepeats(false);
-                t.start();
             }  
 
             else { 
@@ -364,7 +367,6 @@ class SignUp extends JFrame implements ActionListener {
                             + " terms & conditions..."); 
             } 
         }
-  
         else if (e.getSource() == reset) {
             String erase = ""; 
             usernameText.setText(erase); 
@@ -382,4 +384,34 @@ class SignUp extends JFrame implements ActionListener {
             resadd.setText(erase); 
         }//end else if
     }//end ActionEvent
+
+    public boolean validateFields() {
+        if (! validateField( usernameText, "Please enter a username"))
+            return false;
+        else if (! validateField( passwordText, "Please enter a password"))
+            return false;
+        else if (! validateField(ageText, "Please enter age"))
+            return false;
+        else if (! validateField(heightText, "Please enter height"))
+            return false;
+        else if (! validateField(weightText, "Please enter weight"))
+            return false;
+        else if (! validateField(goalWeightText, "Please enter goal weight"))
+            return false;
+        else
+            return true;
+    }
+
+    private boolean validateField(JTextField f, String errormsg) {
+        if (f.getText().equals(""))
+            return failedMessage(f, errormsg);
+        else
+            return true;
+    }
+
+    private boolean failedMessage(JTextField f, String errormsg) {
+        JOptionPane.showMessageDialog(null, errormsg);
+        f.requestFocus();
+        return false;
+    }
 }//end SignUp()
