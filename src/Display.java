@@ -475,7 +475,7 @@ public Display(String username) {
     }
 
     private void update(){
-    new Display(username);
-    frame.dispose();
+        new Display(username);
+        frame.dispose();
     }
 }//end Display()
