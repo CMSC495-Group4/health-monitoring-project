@@ -258,11 +258,13 @@ public Display(String username) {
     currentGoalPanel.add(extraActive, constraints);
     
     updateGoalBtn = new JButton("Update");
+    updateGoalBtn.addActionListener(this);
     constraints.insets = new Insets(0,0,0,0);
     constraints.gridx = 1;
     constraints.gridy = 11;
     constraints.gridwidth = 1;
     currentGoalPanel.add(updateGoalBtn, constraints);
+
     
     clearGoalBtn = new JButton("Clear");
     constraints.insets = new Insets(5,5,5,5);
@@ -387,47 +389,93 @@ public Display(String username) {
         //ensure radio buttons from both fields are selected when update button is pressed.
         // otherwise bad things will likely happen and we really don't want to have to deal with that.
 		if (e.getSource() == clearGoalBtn) {
-	        String erase = ""; 
-	        currentHeightText.setText(erase);
-	        currentWeightText.setText(erase);
-	        goalWeightText.setText(erase);
-	        ageText.setText(erase);
-	        reset_gender.setSelected(true);
-	        reset_activity_level.setSelected(true);
+            clearFields();
 	    }
 		else if (e.getSource() == updateGoalBtn) {
-            String currentHeight = currentHeightText.getText();
-            String currentWeight = currentWeightText.getText();
-            String currentAge = ageText.getText();
-            String gender;
-            if (male.isSelected())
-                gender = "Male";
-            else if (female.isSelected())
-                gender = "Female"; 
-            else
-                gender = "Gender Not Selected";
-            String goalWeight = goalWeightText.getText();   
-            String activity;
-            if (sedentary.isSelected())
-                activity = "Sedentary";
-            else if (lightActive.isSelected())
-                activity = "Light_Activity";
-            else if (modActive.isSelected())
-                activity = "Moderate_Activity";
-            else if (veryActive.isSelected())
-                activity = "Very_Active";
-            else if (extraActive.isSelected())
-                activity = "Extra_Active";  
-            else 
-                activity = "Activity Not Selected";  
-            
-            String[] update_bios = new String[] {currentHeight, currentWeight, currentAge, gender, activity, goalWeight, null, null, null, null, null, null, null, null, null, null, null, null, null, null};
             try {
-                DatabaseInterface update_user = new DatabaseInterface();
-                update_user.update_bios(username, update_bios);
+                //connect to DB
+                DatabaseInterface DB = new DatabaseInterface();
+
+                //set variables to UI input
+                String currentHeight = currentHeightText.getText();
+                String currentWeight = currentWeightText.getText();
+                String currentAge = ageText.getText();
+                String goalWeight = goalWeightText.getText();
+
+                String gender;
+                if (male.isSelected())
+                    gender = "Male";
+                else if (female.isSelected())
+                    gender = "Female";
+                else
+                    gender = "Gender Not Selected";
+
+                String activity;
+                if (sedentary.isSelected())
+                    activity = "Sedentary";
+                else if (lightActive.isSelected())
+                    activity = "Light_Activity";
+                else if (modActive.isSelected())
+                    activity = "Moderate_Activity";
+                else if (veryActive.isSelected())
+                    activity = "Very_Active";
+                else if (extraActive.isSelected())
+                    activity = "Extra_Active";
+                else
+                    activity = "Activity Not Selected";
+
+                //get bios and shuffle weight end of array
+                String [] bios = DB.get_bios(username);
+                bios = shuffleWeight(bios);
+                bios [19] = bios[1];
+
+                //if variable is not blank set to bios array
+                if(!currentHeight.equals(""))
+                    bios[0] = currentHeight;
+                if(!currentWeight.equals(""))
+                    bios[1] = currentWeight;
+                if(!currentAge.equals(""))
+                    bios[2] = currentAge;
+                if(gender.equals("Female") || gender.equals("Male"))
+                    bios[3] = gender;
+                if(!activity.equals("Activity Not Selected"))
+                    bios[5] = activity;
+                if(!goalWeight.equals(""))
+                    bios[5] = goalWeight;
+
+                //push bios to DB
+                DB.update_bios(username, bios);
+
+                update();
             } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+                //if we catch an IOException, we alert user and clear the fields.
+                JOptionPane.showMessageDialog(null,"Problem Updating Profile. \nGoodbye!","Alert",
+                        JOptionPane.WARNING_MESSAGE);
+
+                clearFields();
+            }//end catch
 		}//end else if
 	}//end action event
+
+    public String [] shuffleWeight(String [] arrayToShuffle){
+        for (int i=0; i<=12; i++)
+            arrayToShuffle[i+6] = arrayToShuffle[i+7];
+
+        return arrayToShuffle;
+    }
+    //clear fields helper method
+    private void clearFields(){
+        String erase = "";
+        currentHeightText.setText(erase);
+        currentWeightText.setText(erase);
+        goalWeightText.setText(erase);
+        ageText.setText(erase);
+        reset_gender.setSelected(true);
+        reset_activity_level.setSelected(true);
+    }
+
+    private void update(){
+        new Display(username);
+        frame.dispose();
+    }
 }//end Display()

@@ -302,14 +302,13 @@ class SignUp extends JFrame implements ActionListener {
                 String data1;
                 String data = "Username: " + usernameText.getText() + "\n" + "Password Match: " + passwordText.getText()
                         + "\n";
-                
                 if (male.isSelected())
                     data1 = "Male";
                 else if (female.isSelected())
                     data1 = "Female";
                 else
                     data1 = "Gender: ";
-
+                
                 String data2 = "Age : " + ageText.getText();
                 String data3 = "Current Height: " + heightText.getText();
                 String data4 = "Current Weight: " + weightText.getText();
@@ -342,7 +341,9 @@ class SignUp extends JFrame implements ActionListener {
                 try {
                     DatabaseInterface new_user = new DatabaseInterface();
                     if (new_user.user_exists(usernameText.getText()))
-                        JOptionPane.showMessageDialog(null, "Username already exists");
+                        JOptionPane.showMessageDialog(null, "Username already exists.");
+                    else if (! passwordText.getText().equals(rePasswordText.getText()))
+                        JOptionPane.showMessageDialog(null, "Passwords do not match.");
                     else
                         new_user.add_user(usernameText.getText(), passwordText.getText(), bios);
                         res.setText("Profile successfully created...Returning to Login Page!"); 
@@ -392,11 +393,19 @@ class SignUp extends JFrame implements ActionListener {
             return false;
         else if (! validateField(ageText, "Please enter age"))
             return false;
+        else if (! validateInteger(ageText, "Please enter valid number for age"))
+            return false;
         else if (! validateField(heightText, "Please enter height"))
+            return false;
+        else if (! validateInteger(heightText, "Please enter valid number for height"))
             return false;
         else if (! validateField(weightText, "Please enter weight"))
             return false;
+        else if (! validateInteger(weightText, "Please enter valid number for weight"))
+            return false;
         else if (! validateField(goalWeightText, "Please enter goal weight"))
+            return false;
+        else if (! validateInteger(goalWeightText, "Please enter valid number for goal weight"))
             return false;
         else
             return true;
@@ -407,6 +416,17 @@ class SignUp extends JFrame implements ActionListener {
             return failedMessage(f, errormsg);
         else
             return true;
+    }
+
+    private boolean validateInteger(JTextField f, String errormsg) {
+        try {
+            int i = Integer.parseInt(f.getText());
+            if (i>0)
+                return true;
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+        return failedMessage(f, errormsg);
     }
 
     private boolean failedMessage(JTextField f, String errormsg) {
