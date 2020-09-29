@@ -38,12 +38,12 @@ public class Calculation {
      */
     public String calc_weight_goal(){
         switch (gender){
-            case("male"):
+            case("Male"):
                 double temp = calcMale();
                 calories = calcHarrisBenedict(temp);
                 break;
 
-            case("female"):
+            case("Female"):
                 temp = calcFemale();
                 calories = calcHarrisBenedict(temp);
                 break;
@@ -81,19 +81,20 @@ public class Calculation {
     private double calcHarrisBenedict(double BMR){
         double calories_to_maintain = 0;
         switch(activity_level){
-            case("sedentary"):
+
+            case("Sedentary"):
                 calories_to_maintain = BMR * 1.2;
                 break;
-            case("light_activity"):
+            case("Light_Activity"):
                 calories_to_maintain = BMR * 1.375;
                 break;
-            case("moderate"):
+            case("Moderate_Activity"):
                 calories_to_maintain = BMR * 1.55;
                 break;
-            case("very_active"):
+            case("Very_Active"):
                 calories_to_maintain = BMR * 1.725;
                 break;
-            case("extra_active"):
+            case("Extra_Active"):
                 calories_to_maintain = BMR * 1.9;
                 break;
         }
