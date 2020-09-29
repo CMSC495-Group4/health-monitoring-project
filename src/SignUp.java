@@ -21,9 +21,9 @@ class SignUp extends JFrame implements ActionListener {
     private JLabel usernameLabel;
     private JTextField usernameText;
     private JLabel passwordLabel;
-    private JTextField passwordText; // OR to char-out use JPasswordField;
+    private JPasswordField passwordText; // OR to char-out use JPasswordField;
     private JLabel rePasswordLabel;
-    private JTextField rePasswordText; // OR to char-out use JPasswordField;
+    private JPasswordField rePasswordText; // OR to char-out use JPasswordField;
 
     private JLabel gender;
     private JRadioButton male;
@@ -111,7 +111,7 @@ class SignUp extends JFrame implements ActionListener {
         c.add(passwordLabel);
 
         // add in logic to see if passwords match!!!!
-        passwordText = new JTextField();
+        passwordText = new JPasswordField();
         passwordText.setFont(new Font("Arial", Font.PLAIN, 15));
         passwordText.setSize(200, 20);
         passwordText.setLocation(200, 150);
@@ -123,7 +123,7 @@ class SignUp extends JFrame implements ActionListener {
         rePasswordLabel.setLocation(100, 175);
         c.add(rePasswordLabel);
 
-        rePasswordText = new JTextField();
+        rePasswordText = new JPasswordField();
         rePasswordText.setFont(new Font("Arial", Font.PLAIN, 15));
         rePasswordText.setSize(200, 20);
         rePasswordText.setLocation(200, 175);
