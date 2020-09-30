@@ -61,6 +61,9 @@ class SignUp extends JFrame implements ActionListener {
 
     // add date and time
     private JLabel dateTime;
+    //random things
+    private JLabel inch;
+    private JLabel pound;
 
     // constructor, to initialize the components
     // with default values.
@@ -178,8 +181,14 @@ class SignUp extends JFrame implements ActionListener {
         heightText = new JTextField();
         heightText.setFont(new Font("Arial", Font.PLAIN, 15));
         heightText.setSize(50, 20);
-        heightText.setLocation(200, 300);
+        heightText.setLocation(170, 300);
         c.add(heightText);
+        
+        inch = new JLabel("inches");
+        inch.setFont(new Font("Arial", Font.PLAIN, 10));
+        inch.setSize(50, 20);
+        inch.setLocation(225, 300);
+        c.add(inch);
 
         weightLabel = new JLabel("Weight:");
         weightLabel.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -192,6 +201,12 @@ class SignUp extends JFrame implements ActionListener {
         weightText.setSize(50, 20);
         weightText.setLocation(350, 300);
         c.add(weightText);
+        
+        pound = new JLabel("lbs");
+        pound.setFont(new Font("Arial", Font.PLAIN, 10));
+        pound.setSize(50, 20);
+        pound.setLocation(405, 300);
+        c.add(pound);
 
         activityLabel = new JLabel("Activity Level");
         activityLabel.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -241,12 +256,18 @@ class SignUp extends JFrame implements ActionListener {
         goalWeightLabel.setSize(150, 25);
         goalWeightLabel.setLocation(202, 410);
         c.add(goalWeightLabel);
-
+        
         goalWeightText = new JTextField();
         goalWeightText.setFont(new Font("Arial", Font.PLAIN, 15));
         goalWeightText.setSize(50, 20);
         goalWeightText.setLocation(330, 410);
         c.add(goalWeightText);
+        
+        pound = new JLabel("lbs");
+        pound.setFont(new Font("Arial", Font.PLAIN, 10));
+        pound.setSize(50, 20);
+        pound.setLocation(385, 410);
+        c.add(pound);
 
         term = new JCheckBox("Accept Terms And Conditions.");
         term.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -347,7 +368,7 @@ class SignUp extends JFrame implements ActionListener {
                     else
                         new_user.add_user(usernameText.getText(), passwordText.getText(), bios);
                         res.setText("Profile successfully created...Returning to Login Page!"); 
-                        final Timer t = new Timer(10000, new ActionListener() {
+                        final Timer t = new Timer(6000, new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent evt) {
                                 dispose();
@@ -407,10 +428,47 @@ class SignUp extends JFrame implements ActionListener {
             return false;
         else if (! validateInteger(goalWeightText, "Please enter valid number for goal weight"))
             return false;
+        else if (!validateButton(female, "Please select your gender"))
+        	  return false;
+        else if(!validateButtonS(sedentary, "Please select your activity level"))
+        	return false;
         else
             return true;
     }
+    //function for the activity level buttons
+    private boolean validateButtonS(JRadioButton b, String errormsg) {
+        //begin activity leves
+        if (sedentary.isSelected())
+            return true;
+        else if (lightActive.isSelected())
+            return true;
+        else if (modActive.isSelected())
+            return true;
+        else if (veryActive.isSelected())
+            return true;
+        else if (extraActive.isSelected())
+            return true;
+        else
+        	return failedMess(b, errormsg);
+    }
+  
+    //function for the gender type
+    private boolean validateButton(JRadioButton b, String errormsg) {
+        if (female.isSelected())
+            return true;
+        else if (male.isSelected())
+            return true;
+        else
+        	return failedMess(b, errormsg);
+    }
 
+    //returned for both the activty and gender radio buttons
+    private boolean failedMess(JRadioButton b, String errormsg) {
+    	JOptionPane.showMessageDialog(null, errormsg);
+        b.requestFocus();
+		return false;
+	}
+  
     private boolean validateField(JTextField f, String errormsg) {
         if (f.getText().equals(""))
             return failedMessage(f, errormsg);
