@@ -169,7 +169,7 @@ class SignUp extends JFrame implements ActionListener {
         ageText.setLocation(200, 250);
         c.add(ageText);
 
-        heightLabel = new JLabel("Height (in):");
+        heightLabel = new JLabel("Height:");
         heightLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         heightLabel.setSize(90, 25);
         heightLabel.setLocation(100, 300);
@@ -181,7 +181,7 @@ class SignUp extends JFrame implements ActionListener {
         heightText.setLocation(200, 300);
         c.add(heightText);
 
-        weightLabel = new JLabel("Weight (lbs):");
+        weightLabel = new JLabel("Weight:");
         weightLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         weightLabel.setSize(90, 25);
         weightLabel.setLocation(275, 300);
@@ -236,7 +236,7 @@ class SignUp extends JFrame implements ActionListener {
         actyLvlGroup.add(extraActive);
         actyLvlGroup.add(reset_activity_level);
 
-        goalWeightLabel = new JLabel("Goal Weight: (lbs)");
+        goalWeightLabel = new JLabel("Goal Weight:");
         goalWeightLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         goalWeightLabel.setSize(150, 25);
         goalWeightLabel.setLocation(202, 410);
