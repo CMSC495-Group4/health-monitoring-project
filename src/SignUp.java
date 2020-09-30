@@ -61,6 +61,9 @@ class SignUp extends JFrame implements ActionListener {
 
     // add date and time
     private JLabel dateTime;
+    //random things
+    private JLabel inch;
+    private JLabel pound;
 
     // constructor, to initialize the components
     // with default values.
@@ -178,8 +181,14 @@ class SignUp extends JFrame implements ActionListener {
         heightText = new JTextField();
         heightText.setFont(new Font("Arial", Font.PLAIN, 15));
         heightText.setSize(50, 20);
-        heightText.setLocation(200, 300);
+        heightText.setLocation(170, 300);
         c.add(heightText);
+        
+        inch = new JLabel("inches");
+        inch.setFont(new Font("Arial", Font.PLAIN, 10));
+        inch.setSize(50, 20);
+        inch.setLocation(225, 300);
+        c.add(inch);
 
         weightLabel = new JLabel("Weight:");
         weightLabel.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -192,6 +201,12 @@ class SignUp extends JFrame implements ActionListener {
         weightText.setSize(50, 20);
         weightText.setLocation(350, 300);
         c.add(weightText);
+        
+        pound = new JLabel("lbs");
+        pound.setFont(new Font("Arial", Font.PLAIN, 10));
+        pound.setSize(50, 20);
+        pound.setLocation(405, 300);
+        c.add(pound);
 
         activityLabel = new JLabel("Activity Level");
         activityLabel.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -241,12 +256,18 @@ class SignUp extends JFrame implements ActionListener {
         goalWeightLabel.setSize(150, 25);
         goalWeightLabel.setLocation(202, 410);
         c.add(goalWeightLabel);
-
+        
         goalWeightText = new JTextField();
         goalWeightText.setFont(new Font("Arial", Font.PLAIN, 15));
         goalWeightText.setSize(50, 20);
         goalWeightText.setLocation(330, 410);
         c.add(goalWeightText);
+        
+        pound = new JLabel("lbs");
+        pound.setFont(new Font("Arial", Font.PLAIN, 10));
+        pound.setSize(50, 20);
+        pound.setLocation(385, 410);
+        c.add(pound);
 
         term = new JCheckBox("Accept Terms And Conditions.");
         term.setFont(new Font("Arial", Font.PLAIN, 15));
