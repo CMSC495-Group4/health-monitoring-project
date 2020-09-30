@@ -169,7 +169,7 @@ class SignUp extends JFrame implements ActionListener {
         ageText.setLocation(200, 250);
         c.add(ageText);
 
-        heightLabel = new JLabel("Height:");
+        heightLabel = new JLabel("Height (in):");
         heightLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         heightLabel.setSize(90, 25);
         heightLabel.setLocation(100, 300);
@@ -181,7 +181,7 @@ class SignUp extends JFrame implements ActionListener {
         heightText.setLocation(200, 300);
         c.add(heightText);
 
-        weightLabel = new JLabel("Weight:");
+        weightLabel = new JLabel("Weight (lbs):");
         weightLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         weightLabel.setSize(90, 25);
         weightLabel.setLocation(275, 300);
@@ -236,7 +236,7 @@ class SignUp extends JFrame implements ActionListener {
         actyLvlGroup.add(extraActive);
         actyLvlGroup.add(reset_activity_level);
 
-        goalWeightLabel = new JLabel("Goal Weight:");
+        goalWeightLabel = new JLabel("Goal Weight: (lbs)");
         goalWeightLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         goalWeightLabel.setSize(150, 25);
         goalWeightLabel.setLocation(202, 410);
@@ -347,7 +347,7 @@ class SignUp extends JFrame implements ActionListener {
                     else
                         new_user.add_user(usernameText.getText(), passwordText.getText(), bios);
                         res.setText("Profile successfully created...Returning to Login Page!"); 
-                        final Timer t = new Timer(10000, new ActionListener() {
+                        final Timer t = new Timer(6000, new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent evt) {
                                 dispose();
@@ -407,10 +407,47 @@ class SignUp extends JFrame implements ActionListener {
             return false;
         else if (! validateInteger(goalWeightText, "Please enter valid number for goal weight"))
             return false;
+        else if (!validateButton(female, "Please select your gender"))
+        	  return false;
+        else if(!validateButtonS(sedentary, "Please select your activity level"))
+        	return false;
         else
             return true;
     }
+    //function for the activity level buttons
+    private boolean validateButtonS(JRadioButton b, String errormsg) {
+        //begin activity leves
+        if (sedentary.isSelected())
+            return true;
+        else if (lightActive.isSelected())
+            return true;
+        else if (modActive.isSelected())
+            return true;
+        else if (veryActive.isSelected())
+            return true;
+        else if (extraActive.isSelected())
+            return true;
+        else
+        	return failedMess(b, errormsg);
+    }
+  
+    //function for the gender type
+    private boolean validateButton(JRadioButton b, String errormsg) {
+        if (female.isSelected())
+            return true;
+        else if (male.isSelected())
+            return true;
+        else
+        	return failedMess(b, errormsg);
+    }
 
+    //returned for both the activty and gender radio buttons
+    private boolean failedMess(JRadioButton b, String errormsg) {
+    	JOptionPane.showMessageDialog(null, errormsg);
+        b.requestFocus();
+		return false;
+	}
+  
     private boolean validateField(JTextField f, String errormsg) {
         if (f.getText().equals(""))
             return failedMessage(f, errormsg);
