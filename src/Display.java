@@ -21,15 +21,16 @@ public class Display implements ActionListener{
     static JMenuItem menuLogoff, menuDelete;//, placeholder;
     private JFrame frame;
     private String username; //used to track username
+    private String[] user = new String[20];
     
     //Panel 1 - left top - Current stats, ht, wt, GOAL
     private JPanel currentStatsPanel;
     private JLabel heightLabel;
-    private JTextField heightText;
+    private JTextField heightText = new JTextField();
     private JLabel weightLabel;
-    private JTextField weightText;
+    private JTextField weightText = new JTextField();
     private JLabel goalLabel;
-    private JTextField goalText;
+    private JTextField goalText = new JTextField();
     
     //panel 2 - left bottom - goal, gender radio, weight text, 
     	//height text, age, activity level, goal, update button
@@ -60,18 +61,18 @@ public class Display implements ActionListener{
     
     //panel 3 - right top - PROGRESS CHART
     private ChartPanel chartPanel = null;
-    
-    
+    private Chart chart;
+
+
     //panel 4 - right bottom - goal analysis string. 
     private JPanel analysisPanel;
-    private JTextArea analysisArea;
+    private JTextArea analysisArea = new JTextArea();
     
 public Display(String username) {
 	int HORIZSPLIT = JSplitPane.HORIZONTAL_SPLIT;
 	int VERTSPLIT = JSplitPane.VERTICAL_SPLIT;
     boolean GridBagLayout = true;
     this.username = username;
-    String[] user = new String[20];
 
     try {
         DatabaseInterface DB = new DatabaseInterface();
@@ -93,7 +94,7 @@ public Display(String username) {
     constraints.gridwidth = 1;
     currentStatsPanel.add(heightLabel, constraints);
 
-    heightText = new JTextField(user[0]);
+    heightText.setText(user[0]); // = new JTextField(user[0]);
     heightText.setEditable(false);
     constraints.insets = new Insets(2,2,2,2);
     constraints.gridx = 1;
@@ -102,12 +103,19 @@ public Display(String username) {
     currentStatsPanel.add(heightText, constraints);
     
     weightLabel = new JLabel("Weight: ");
-    weightText = new JTextField(user[1]);
     constraints.insets = new Insets(2,2,2,2);
     constraints.gridx = 0;
     constraints.gridy = 1;
     constraints.gridwidth = 1;
     currentStatsPanel.add(weightLabel, constraints);
+
+    weightText.setText(user[1]); // = new JTextField(user[1]);
+    weightText.setEditable(false);
+    constraints.insets = new Insets(2,2,2,2);
+    constraints.gridx = 1;
+    constraints.gridy = 1;
+    constraints.gridwidth = 1;
+    currentStatsPanel.add(weightText, constraints);
 
 
     goalLabel = new JLabel("GOAL: ");
@@ -117,7 +125,7 @@ public Display(String username) {
     constraints.gridwidth = 1;
     currentStatsPanel.add(goalLabel, constraints);
 
-    goalText = new JTextField(user[5]);
+    goalText.setText(user[5]); //= new JTextField(user[5]);
     goalText.setEditable(false);
     constraints.insets = new Insets(0,0,0,0);
     constraints.gridx = 1;
@@ -274,16 +282,8 @@ public Display(String username) {
     currentGoalPanel.add(clearGoalBtn, constraints);
     currentGoalPanel.setBorder(goalBorder);
 
-    weightText.setEditable(false);
-    constraints.insets = new Insets(2,2,2,2);
-    constraints.gridx = 1;
-    constraints.gridy = 1;
-    constraints.gridwidth = 1;
-    currentStatsPanel.add(weightText, constraints);
-
-
     //Start Panel 3
-    Chart chart = new Chart("Progress Chart" , "Days", "Weight", user);
+    chart = new Chart("Progress Chart" , "Days", "Weight", user);
     chartPanel = new ChartPanel(chart.createchart());
     chartPanel.setPreferredSize(new java.awt.Dimension(350,350));
 	
@@ -291,7 +291,7 @@ public Display(String username) {
 	Border analysisBorder = BorderFactory.createTitledBorder("Goal Analysis");
 	analysisPanel = new JPanel();
 	Calculation c = new Calculation(user);
-	analysisArea = new JTextArea(c.calc_weight_goal());
+    analysisArea.setText(c.calc_weight_goal()); //= new JTextArea(c.calc_weight_goal());
 	analysisArea.setSize(360, 100); //modify the height from 100, if need more room!
 	analysisArea.setLineWrap(true);
 	analysisArea.setEditable(false);
@@ -392,61 +392,59 @@ public Display(String username) {
             clearFields();
 	    }
 		else if (e.getSource() == updateGoalBtn) {
+		    //set variables to UI input
+            String currentHeight = currentHeightText.getText();
+            String currentWeight = currentWeightText.getText();
+            String currentAge = ageText.getText();
+            String goalWeight = goalWeightText.getText();
+
+            String gender;
+            if (male.isSelected())
+                gender = "Male";
+            else if (female.isSelected())
+                gender = "Female";
+            else
+                gender = "Gender Not Selected";
+
+            String activity;
+            if (sedentary.isSelected())
+                activity = "Sedentary";
+            else if (lightActive.isSelected())
+                activity = "Light_Activity";
+            else if (modActive.isSelected())
+                activity = "Moderate_Activity";
+            else if (veryActive.isSelected())
+                activity = "Very_Active";
+            else if (extraActive.isSelected())
+                activity = "Extra_Active";
+            else
+                activity = "Activity Not Selected";
+
+            //if variable is not blank set to bios array
+            if(!currentHeight.equals(""))
+                user[0] = currentHeight;
+            if(!currentWeight.equals("")){
+                user = shuffleWeight(user);
+                user[1] = currentWeight;
+                user [19] = user[1];
+                }
+            if(!currentAge.equals(""))
+                user[2] = currentAge;
+            if(gender.equals("Female") || gender.equals("Male"))
+                user[3] = gender;
+            if(!activity.equals("Activity Not Selected"))
+                user[5] = activity;
+            if(!goalWeight.equals(""))
+                user[5] = goalWeight;
+
             try {
                 //connect to DB
                 DatabaseInterface DB = new DatabaseInterface();
-
-                //set variables to UI input
-                String currentHeight = currentHeightText.getText();
-                String currentWeight = currentWeightText.getText();
-                String currentAge = ageText.getText();
-                String goalWeight = goalWeightText.getText();
-
-                String gender;
-                if (male.isSelected())
-                    gender = "Male";
-                else if (female.isSelected())
-                    gender = "Female";
-                else
-                    gender = "Gender Not Selected";
-
-                String activity;
-                if (sedentary.isSelected())
-                    activity = "Sedentary";
-                else if (lightActive.isSelected())
-                    activity = "Light_Activity";
-                else if (modActive.isSelected())
-                    activity = "Moderate_Activity";
-                else if (veryActive.isSelected())
-                    activity = "Very_Active";
-                else if (extraActive.isSelected())
-                    activity = "Extra_Active";
-                else
-                    activity = "Activity Not Selected";
-
-                //get bios and shuffle weight end of array
-                String [] bios = DB.get_bios(username);
-                bios = shuffleWeight(bios);
-                bios [19] = bios[1];
-
-                //if variable is not blank set to bios array
-                if(!currentHeight.equals(""))
-                    bios[0] = currentHeight;
-                if(!currentWeight.equals(""))
-                    bios[1] = currentWeight;
-                if(!currentAge.equals(""))
-                    bios[2] = currentAge;
-                if(gender.equals("Female") || gender.equals("Male"))
-                    bios[3] = gender;
-                if(!activity.equals("Activity Not Selected"))
-                    bios[5] = activity;
-                if(!goalWeight.equals(""))
-                    bios[5] = goalWeight;
-
                 //push bios to DB
-                DB.update_bios(username, bios);
+                DB.update_bios(username, user);
 
                 update();
+                clearFields();
             } catch (IOException e1) {
                 //if we catch an IOException, we alert user and clear the fields.
                 JOptionPane.showMessageDialog(null,"Problem Updating Profile. \nGoodbye!","Alert",
@@ -473,9 +471,16 @@ public Display(String username) {
         reset_gender.setSelected(true);
         reset_activity_level.setSelected(true);
     }
-
+    // updates the fields, chat and chlculation
     private void update(){
-        new Display(username);
-        frame.dispose();
+        heightText.setText(user[0]);
+        weightText.setText(user[1]);
+        goalText.setText(user[5]);
+
+        Calculation c = new Calculation(user);
+        analysisArea.setText(c.calc_weight_goal());
+
+        chart.update(user);
+
     }
 }//end Display()

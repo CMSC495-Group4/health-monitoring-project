@@ -19,6 +19,8 @@ public class Chart{
 	private String [] dataset_array = null;
 	private int goal = 0;
 	private String set_label = "Weight history";
+	DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
+
 
 	/**
 	 * Class Constructor.
@@ -58,13 +60,25 @@ public class Chart{
 	 * @return DefaultCategoryDataset representing user and goal data. 
 	 */
 	private DefaultCategoryDataset createDataset() {
-		DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
 		for (int i=0; i<dataset_array.length; i++){
-			System.out.println(dataset_array[i]);
 			if (!dataset_array[i].equals("null")) 
 	    		  dataset.addValue(Integer.parseInt(dataset_array[i]), set_label,""+(14-i));
 	    	  dataset.addValue(goal, "Goal", ""+(14-i));
 	      }	    	  
 	      return dataset;
+	}
+
+	/**
+	 * Updates the DefaultCategoryDataset that is used to create the JFreeChart.
+	 *
+	 */
+	public void update(String[] bios) {
+		dataset_array = Arrays.copyOfRange(bios, 6, 20);
+		for (int i = 0; i < dataset_array.length; i++) {
+			if (!dataset_array[i].equals("null"))
+				dataset.addValue(Integer.parseInt(dataset_array[i]), set_label, "" + (14 - i));
+			dataset.addValue(goal, "Goal", "" + (14 - i));
+
+		}
 	}
 }
