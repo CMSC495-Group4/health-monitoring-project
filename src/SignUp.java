@@ -358,7 +358,7 @@ class SignUp extends JFrame implements ActionListener {
                 //bios array indices 8-20 are reserved for historical GOAl data; index 21 included for .csv formatting
                 String[] bios = new String[] {heightText.getText(), weightText.getText(), ageText.getText(), data1,
                         data5, goalWeightText.getText(), null, null, null, null, null, null, null, null, null, null,
-                        null, null, null, null};
+                        null, null, null, weightText.getText()};
                 try {
                     DatabaseInterface new_user = new DatabaseInterface();
                     if (new_user.user_exists(usernameText.getText()))
