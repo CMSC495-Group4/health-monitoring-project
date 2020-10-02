@@ -367,7 +367,7 @@ class SignUp extends JFrame implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Passwords do not match.");
                     else
                         new_user.add_user(usernameText.getText(), passwordText.getText(), bios);
-                        res.setText("Profile successfully created...Returning to Login Page!"); 
+                        res.setText("Profile successfully created...Returning to Login Page!");
                         final Timer t = new Timer(6000, new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent evt) {
@@ -410,7 +410,7 @@ class SignUp extends JFrame implements ActionListener {
     public boolean validateFields() {
         if (! validateField( usernameText, "Please enter a username"))
             return false;
-        else if (! validateField( passwordText, "Please enter a password"))
+        else if (! validatePassword( passwordText, "Password must be at least 8 characters long."))
             return false;
         else if (! validateField(ageText, "Please enter age"))
             return false;
@@ -473,6 +473,15 @@ class SignUp extends JFrame implements ActionListener {
         if (f.getText().equals(""))
             return failedMessage(f, errormsg);
         else
+            return true;
+    }
+
+    private boolean validatePassword(JTextField f, String errormsg) {
+        if (f.getText().equals("")) {
+            return failedMessage(f, errormsg);
+        } else if (f.getText().length() <= 7){
+            return failedMessage(f, errormsg);
+        } else
             return true;
     }
 
