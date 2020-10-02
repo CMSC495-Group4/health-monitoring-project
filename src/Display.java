@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import javax.swing.border.Border;
 
+import jdk.jfr.ContentType;
 import org.jfree.chart.ChartPanel;
 
 public class Display implements ActionListener{
@@ -392,66 +393,106 @@ public Display(String username) {
             clearFields();
 	    }
 		else if (e.getSource() == updateGoalBtn) {
-		    //set variables to UI input
-            String currentHeight = currentHeightText.getText();
-            String currentWeight = currentWeightText.getText();
-            String currentAge = ageText.getText();
-            String goalWeight = goalWeightText.getText();
 
-            String gender;
-            if (male.isSelected())
-                gender = "Male";
-            else if (female.isSelected())
-                gender = "Female";
-            else
-                gender = "Gender Not Selected";
+		    boolean input_correct = true;
+		    while (input_correct) {
+                //set variables to UI input
+                String currentHeight = currentHeightText.getText();
+                String currentWeight = currentWeightText.getText();
+                String currentAge = ageText.getText();
+                String goalWeight = goalWeightText.getText();
 
-            String activity;
-            if (sedentary.isSelected())
-                activity = "Sedentary";
-            else if (lightActive.isSelected())
-                activity = "Light_Activity";
-            else if (modActive.isSelected())
-                activity = "Moderate_Activity";
-            else if (veryActive.isSelected())
-                activity = "Very_Active";
-            else if (extraActive.isSelected())
-                activity = "Extra_Active";
-            else
-                activity = "Activity Not Selected";
-
-            //if variable is not blank set to bios array
-            if(!currentHeight.equals(""))
-                user[0] = currentHeight;
-            if(!currentWeight.equals("")){
-                user = shuffleWeight(user);
-                user[1] = currentWeight;
-                user [19] = user[1];
+                /**
+                 * input type validation for GOAL Updates
+                 *
+                 */
+                    //currenHeight
+                if (!(currentHeight.matches("([\\d])+")) && (!(currentHeight.matches("")))) {
+                    System.out.println("inside where i shouldn't be: " + currentHeight);
+                    JOptionPane.showMessageDialog(null, "You did not enter a numerical value in the Current Height field", "Alert",
+                            JOptionPane.WARNING_MESSAGE);
+                    clearFields();
+                    break;
+                    //currentWeight
+                } else if (!(currentWeight.matches("([\\d])+")) && (!(currentWeight.matches("")))) {
+                    System.out.println("inside where i shouldn't be: " + currentHeight);
+                    JOptionPane.showMessageDialog(null, "You did not enter a numerical value in the Current Weight field", "Alert",
+                            JOptionPane.WARNING_MESSAGE);
+                    clearFields();
+                    break;
+                    //currentAge
+                } else if (!(currentAge.matches("([\\d])+")) && (!(currentAge.matches("")))) {
+                    System.out.println("inside where i shouldn't be: " + currentHeight);
+                    JOptionPane.showMessageDialog(null, "You did not enter a numerical value in the Age field", "Alert",
+                            JOptionPane.WARNING_MESSAGE);
+                    clearFields();
+                    break;
+                    //goalWeight
+                } else if (!(goalWeight.matches("([\\d])+")) && (!(goalWeight.matches("")))) {
+                    System.out.println("inside where i shouldn't be: " + currentHeight);
+                    JOptionPane.showMessageDialog(null, "You did not enter a numerical value in the GOAL Weight field", "Alert",
+                            JOptionPane.WARNING_MESSAGE);
+                    clearFields();
+                    break;
                 }
-            if(!currentAge.equals(""))
-                user[2] = currentAge;
-            if(gender.equals("Female") || gender.equals("Male"))
-                user[3] = gender;
-            if(!activity.equals("Activity Not Selected"))
-                user[5] = activity;
-            if(!goalWeight.equals(""))
-                user[5] = goalWeight;
 
-            try {
-                //connect to DB
-                DatabaseInterface DB = new DatabaseInterface();
-                //push bios to DB
-                DB.update_bios(username, user);
+                String gender;
+                if (male.isSelected())
+                    gender = "Male";
+                else if (female.isSelected())
+                    gender = "Female";
+                else
+                    gender = "Gender Not Selected";
 
-                update();
-                clearFields();
-            } catch (IOException e1) {
-                //if we catch an IOException, we alert user and clear the fields.
-                JOptionPane.showMessageDialog(null,"Problem Updating Profile. \nGoodbye!","Alert",
-                        JOptionPane.WARNING_MESSAGE);
+                String activity;
+                if (sedentary.isSelected())
+                    activity = "Sedentary";
+                else if (lightActive.isSelected())
+                    activity = "Light_Activity";
+                else if (modActive.isSelected())
+                    activity = "Moderate_Activity";
+                else if (veryActive.isSelected())
+                    activity = "Very_Active";
+                else if (extraActive.isSelected())
+                    activity = "Extra_Active";
+                else
+                    activity = "Activity Not Selected";
 
-                clearFields();
-            }//end catch
+                //if variable is not blank set to bios array
+                if (!currentHeight.equals(""))
+                    user[0] = currentHeight;
+                if (!currentWeight.equals("")) {
+                    user = shuffleWeight(user);
+                    user[1] = currentWeight;
+                    user[19] = user[1];
+                }
+                if (!currentAge.equals(""))
+                    user[2] = currentAge;
+                if (gender.equals("Female") || gender.equals("Male"))
+                    user[3] = gender;
+                if (!activity.equals("Activity Not Selected"))
+                    user[4] = activity;
+                if (!goalWeight.equals(""))
+                    user[5] = goalWeight;
+
+                try {
+                    //connect to DB
+                    DatabaseInterface DB = new DatabaseInterface();
+                    //push bios to DB
+                    DB.update_bios(username, user);
+                    input_correct = false;
+                    update();
+                    clearFields();
+
+                } catch (IOException e1) {
+                    //if we catch an IOException, we alert user and clear the fields.
+                    JOptionPane.showMessageDialog(null, "Problem Updating Profile. \nGoodbye!", "Alert",
+                            JOptionPane.WARNING_MESSAGE);
+                    input_correct = false;
+                    clearFields();
+
+                }//end catch
+            }//end while loop
 		}//end else if
 	}//end action event
 
