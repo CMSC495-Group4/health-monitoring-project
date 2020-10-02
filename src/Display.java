@@ -406,7 +406,7 @@ public Display(String username) {
                  * input type validation for GOAL Updates
                  *
                  */
-                    //currenHeight
+                    //currentHeight
                 if (!(currentHeight.matches("([\\d])+")) && (!(currentHeight.matches("")))) {
                     System.out.println("inside where i shouldn't be: " + currentHeight);
                     JOptionPane.showMessageDialog(null, "You did not enter a numerical value in the Current Height field", "Alert",
