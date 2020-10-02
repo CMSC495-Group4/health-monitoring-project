@@ -295,6 +295,13 @@ class SignUp extends JFrame implements ActionListener {
         tout.setLocation(500, 100);
         tout.setLineWrap(true);
         tout.setEditable(false);
+        //terms and conditions
+        String terms_conditions = "Please read it before continuing. If you are an " +
+                "owner of an account on this application, you" +"\n"+"are solely responsible for maintaining the " +
+                "\n"+"confidentiality of your private user details (username and password). You are" +
+                "responsible for all activities that occur under your account or password.\n" + "\nWe reserve " +
+                "all rights to terminate accounts, and/or edit or remove content at our sole\n discretion.\n";
+        tout.setText(terms_conditions);
         c.add(tout);
 
         res = new JLabel("");
@@ -352,11 +359,7 @@ class SignUp extends JFrame implements ActionListener {
                     data7 = "Terms and Conditions: True" + "\n";
                 else
                     data7 = "Terms and Conditions: False" + "\n";
-                //data == username/password, data1 == gender, data2 == age, data3 == height, data4 == weight, data5 == activity level, data6 == goal weight, data7 == terms&cond checked
-                //terms and conditions
-                String terms_conditions = "These are the terms and conditions. Don't blame us, you did it yourself.";
-                tout.setText(terms_conditions);
-                tout.setEditable(false);
+
                 //bios array indices 8-20 are reserved for historical GOAl data; index 21 included for .csv formatting
                 String[] bios = new String[] {heightText.getText(), weightText.getText(), ageText.getText(), data1,
                         data5, goalWeightText.getText(), null, null, null, null, null, null, null, null, null, null,
