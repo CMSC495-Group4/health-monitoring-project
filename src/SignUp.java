@@ -389,8 +389,7 @@ class SignUp extends JFrame implements ActionListener {
                 }//end try
             }//end if
 
-            else { 
-                tout.setText(""); 
+            else {
                 resadd.setText(""); 
                 res.setText("Please accept the"
                             + " terms & conditions..."); 
