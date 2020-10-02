@@ -408,29 +408,29 @@ public Display(String username) {
                  */
                     //currentHeight
                 if (!(currentHeight.matches("([\\d])+")) && (!(currentHeight.matches("")))) {
-                    System.out.println("inside where i shouldn't be: " + currentHeight);
-                    JOptionPane.showMessageDialog(null, "You did not enter a numerical value in the Current Height field", "Alert",
+                    JOptionPane.showMessageDialog(null, "You did not enter a numerical " +
+                                    "value in the Current Height field", "Alert",
                             JOptionPane.WARNING_MESSAGE);
                     clearFields();
                     break;
                     //currentWeight
                 } else if (!(currentWeight.matches("([\\d])+")) && (!(currentWeight.matches("")))) {
-                    System.out.println("inside where i shouldn't be: " + currentHeight);
-                    JOptionPane.showMessageDialog(null, "You did not enter a numerical value in the Current Weight field", "Alert",
+                    JOptionPane.showMessageDialog(null, "You did not enter a numerical " +
+                                    "value in the Current Weight field", "Alert",
                             JOptionPane.WARNING_MESSAGE);
                     clearFields();
                     break;
                     //currentAge
                 } else if (!(currentAge.matches("([\\d])+")) && (!(currentAge.matches("")))) {
-                    System.out.println("inside where i shouldn't be: " + currentHeight);
-                    JOptionPane.showMessageDialog(null, "You did not enter a numerical value in the Age field", "Alert",
+                    JOptionPane.showMessageDialog(null, "You did not enter a numerical " +
+                                    "value in the Age field", "Alert",
                             JOptionPane.WARNING_MESSAGE);
                     clearFields();
                     break;
                     //goalWeight
                 } else if (!(goalWeight.matches("([\\d])+")) && (!(goalWeight.matches("")))) {
-                    System.out.println("inside where i shouldn't be: " + currentHeight);
-                    JOptionPane.showMessageDialog(null, "You did not enter a numerical value in the GOAL Weight field", "Alert",
+                    JOptionPane.showMessageDialog(null, "You did not enter a numerical " +
+                                    "value in the GOAL Weight field", "Alert",
                             JOptionPane.WARNING_MESSAGE);
                     clearFields();
                     break;
@@ -480,7 +480,8 @@ public Display(String username) {
                     DatabaseInterface DB = new DatabaseInterface();
                     //push bios to DB
                     DB.update_bios(username, user);
-                    input_correct = false;
+                    input_correct = false; //to ensure departure from while loop
+                    //TODO: update chart pane here -- to ensure updates to goalWeight (red line) updates
                     update();
                     clearFields();
 

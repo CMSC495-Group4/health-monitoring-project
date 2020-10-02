@@ -296,11 +296,11 @@ class SignUp extends JFrame implements ActionListener {
         tout.setLineWrap(true);
         tout.setEditable(false);
         //terms and conditions
-        String terms_conditions = "Please read it before continuing. If you are an " +
-                "owner of an account on this application, you" +"\n"+"are solely responsible for maintaining the " +
-                "\n"+"confidentiality of your private user details (username and password). You are" +
-                "responsible for all activities that occur under your account or password.\n" + "\nWe reserve " +
-                "all rights to terminate accounts, and/or edit or remove content at our sole\n discretion.\n";
+        String terms_conditions = "Please read these Terms and Conditions prior to continuing. If you are an " +
+                "owner of an \naccount on this application, you are solely \nresponsible for maintaining the " +
+                "confidentiality of your private user details (username and \npassword). You are " +
+                "responsible for all \nactivities that occur under your account or \npassword. We reserve " +
+                "all rights to terminate \naccounts, and/or edit or remove content at our sole discretion.";
         tout.setText(terms_conditions);
         c.add(tout);
 
