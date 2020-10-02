@@ -74,10 +74,12 @@ public class Chart{
 	 */
 	public void update(String[] bios) {
 		dataset_array = Arrays.copyOfRange(bios, 6, 20);
+		goal=Integer.parseInt(bios[5]);
 		for (int i = 0; i < dataset_array.length; i++) {
 			if (!dataset_array[i].equals("null"))
 				dataset.addValue(Integer.parseInt(dataset_array[i]), set_label, "" + (14 - i));
 			dataset.addValue(goal, "Goal", "" + (14 - i));
+
 
 		}
 	}
