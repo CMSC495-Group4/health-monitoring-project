@@ -353,7 +353,9 @@ class SignUp extends JFrame implements ActionListener {
                 else
                     data7 = "Terms and Conditions: False" + "\n";
                 //data == username/password, data1 == gender, data2 == age, data3 == height, data4 == weight, data5 == activity level, data6 == goal weight, data7 == terms&cond checked
-                tout.setText(data +"\n"+ data1 +"\n"+ data2 +"\n"+ data3 +"\n"+ data4 +"\n"+ data5 +"\n"+ data6 +"\n"+ data7);
+                //terms and conditions
+                String terms_conditions = "These are the terms and conditions. Don't blame us, you did it yourself.";
+                tout.setText(terms_conditions);
                 tout.setEditable(false);
                 //bios array indices 8-20 are reserved for historical GOAl data; index 21 included for .csv formatting
                 String[] bios = new String[] {heightText.getText(), weightText.getText(), ageText.getText(), data1,
@@ -365,9 +367,10 @@ class SignUp extends JFrame implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Username already exists.");
                     else if (! passwordText.getText().equals(rePasswordText.getText()))
                         JOptionPane.showMessageDialog(null, "Passwords do not match.");
-                    else
+                    else if (passwordText.getText().equals(rePasswordText.getText())) {
                         new_user.add_user(usernameText.getText(), passwordText.getText(), bios);
                         res.setText("Profile successfully created...Returning to Login Page!");
+
                         final Timer t = new Timer(6000, new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent evt) {
@@ -377,10 +380,11 @@ class SignUp extends JFrame implements ActionListener {
                         });
                         t.setRepeats(false);
                         t.start();
+                    }
                 } catch (IOException e1) {
                     e1.printStackTrace();
-                }
-            }  
+                }//end try
+            }//end if
 
             else { 
                 tout.setText(""); 
